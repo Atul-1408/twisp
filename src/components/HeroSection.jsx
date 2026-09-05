@@ -219,35 +219,14 @@ export default function HeroSection({ onOpenQuoteModal, onViewWork }) {
               <div
                 style={{
                   width: '100%',
-                  height: '400px',
+                  minHeight: '430px',
                   borderRadius: '16px',
-                  backgroundColor: 'rgba(4, 26, 19, 0.6)',
+                  backgroundColor: '#031912',
                   position: 'relative',
                   overflow: 'hidden',
                 }}
               >
                 <HeroScene3D />
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '4px 10px',
-                    backgroundColor: 'rgba(3, 19, 14, 0.75)',
-                    borderRadius: '6px',
-                    border: '1px solid rgba(16, 185, 129, 0.2)',
-                    fontSize: '0.6875rem',
-                    fontFamily: 'var(--font-mono)',
-                    color: '#B8F2D5',
-                    pointerEvents: 'none',
-                  }}
-                >
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-                  STUDIO ARCHITECTURE MOCKUP
-                </div>
               </div>
 
               {/* Trust Metric Cards (Matching reference 2x2 grid layout) */}

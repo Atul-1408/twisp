@@ -1,164 +1,106 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import React, { useState, useRef } from 'react';
 
 export default function AbstractEmerald3D() {
-  const containerRef = useRef(null);
+  const cardRef = useRef(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rX = -((y - centerY) / centerY) * 12;
+    const rY = ((x - centerX) / centerX) * 14;
 
-    const scene = new THREE.Scene();
-    const width = container.clientWidth || 480;
-    const height = container.clientHeight || 420;
-
-    const camera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 5.2);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-    container.appendChild(renderer.domElement);
-
-    const abstractGroup = new THREE.Group();
-    scene.add(abstractGroup);
-
-    // 1. ABSTRACT EMERALD GLASS RIBBON / TORUS KNOT
-    const ribbonGeo = new THREE.TorusKnotGeometry(1.25, 0.38, 128, 32, 2, 3);
-    const glassMat = new THREE.MeshPhysicalMaterial({
-      color: 0x10B981,
-      emissive: 0x063B2B,
-      emissiveIntensity: 0.35,
-      metalness: 0.1,
-      roughness: 0.12,
-      transmission: 0.9,
-      thickness: 1.4,
-      ior: 1.55,
-      transparent: true,
-      opacity: 0.94,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
-    });
-    const ribbon = new THREE.Mesh(ribbonGeo, glassMat);
-    abstractGroup.add(ribbon);
-
-    // 2. INNER REFLECTIVE CORE
-    const innerGeo = new THREE.IcosahedronGeometry(0.65, 1);
-    const innerMat = new THREE.MeshStandardMaterial({
-      color: 0xB8F2D5,
-      emissive: 0x087F5B,
-      emissiveIntensity: 0.6,
-      metalness: 0.9,
-      roughness: 0.2,
-      wireframe: true,
-    });
-    const innerCore = new THREE.Mesh(innerGeo, innerMat);
-    abstractGroup.add(innerCore);
-
-    // 3. FLOATING ORBITAL PARTICLES
-    const particleCount = 28;
-    const particleGeo = new THREE.SphereGeometry(0.04, 12, 12);
-    const particleMat = new THREE.MeshBasicMaterial({ color: 0x34D399 });
-    const particleGroup = new THREE.Group();
-    abstractGroup.add(particleGroup);
-
-    for (let i = 0; i < particleCount; i++) {
-      const p = new THREE.Mesh(particleGeo, particleMat);
-      const theta = (i / particleCount) * Math.PI * 2;
-      const phi = (Math.random() - 0.5) * Math.PI;
-      const radius = 1.9 + (Math.random() - 0.5) * 0.4;
-      p.position.set(
-        radius * Math.cos(theta) * Math.cos(phi),
-        radius * Math.sin(phi),
-        radius * Math.sin(theta) * Math.cos(phi)
-      );
-      particleGroup.add(p);
-    }
-
-    // LIGHTING
-    const ambientLight = new THREE.AmbientLight(0x063B2B, 2.2);
-    scene.add(ambientLight);
-
-    const light1 = new THREE.PointLight(0x10B981, 4.5, 10);
-    light1.position.set(3, 4, 3);
-    scene.add(light1);
-
-    const light2 = new THREE.PointLight(0xB8F2D5, 3.0, 10);
-    light2.position.set(-3, -3, 2);
-    scene.add(light2);
-
-    let mouseX = 0;
-    let mouseY = 0;
-    const handleMouseMove = (e) => {
-      const rect = container.getBoundingClientRect();
-      mouseX = (((e.clientX - rect.left) / rect.width) * 2 - 1) * 0.15;
-      mouseY = -(((e.clientY - rect.top) / rect.height) * 2 - 1) * 0.15;
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-
-    const handleResize = () => {
-      if (!container) return;
-      const newWidth = container.clientWidth;
-      const newHeight = container.clientHeight;
-      camera.aspect = newWidth / newHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
-    };
-    window.addEventListener('resize', handleResize);
-
-    let animationId;
-    let clock = new THREE.Clock();
-
-    const animate = () => {
-      animationId = requestAnimationFrame(animate);
-      const elapsed = clock.getElapsedTime();
-
-      if (!prefersReducedMotion) {
-        abstractGroup.rotation.y = elapsed * 0.25 + mouseX;
-        abstractGroup.rotation.x = Math.sin(elapsed * 0.2) * 0.3 + mouseY;
-        innerCore.rotation.y = -elapsed * 0.35;
-        particleGroup.rotation.y = elapsed * 0.15;
-        abstractGroup.position.y = Math.sin(elapsed * 0.8) * 0.08;
-      }
-      renderer.render(scene, camera);
-    };
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
-      if (container && renderer.domElement) {
-        container.removeChild(renderer.domElement);
-      }
-      renderer.dispose();
-      ribbonGeo.dispose();
-      glassMat.dispose();
-      innerGeo.dispose();
-      innerMat.dispose();
-      particleGeo.dispose();
-      particleMat.dispose();
-    };
-  }, []);
+    setRotateX(rX);
+    setRotateY(rY);
+  };
 
   return (
     <div
-      ref={containerRef}
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        setRotateX(0);
+        setRotateY(0);
+      }}
       style={{
-        width: '100%',
-        height: '100%',
-        minHeight: '380px',
         position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: '100%',
+        maxWidth: '420px',
+        height: '420px',
+        borderRadius: '24px',
+        overflow: 'hidden',
+        cursor: 'grab',
+        perspective: '1000px',
+        margin: '0 auto',
       }}
       aria-label="Interactive 3D Abstract Emerald Glass Sculpture"
-      role="img"
-    />
+    >
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          borderRadius: '24px',
+          overflow: 'hidden',
+          transition: isHovered ? 'transform 0.1s ease-out' : 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${isHovered ? 1.03 : 1}, ${isHovered ? 1.03 : 1}, 1)`,
+          boxShadow: '0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(16, 185, 129, 0.25)',
+          border: '1px solid rgba(16, 185, 129, 0.35)',
+        }}
+      >
+        <img
+          src="/assets/3d/cta-abstract-emerald.jpg"
+          alt="TWISP Abstract Emerald Glass Sculpture"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            filter: 'contrast(1.06) brightness(1.02)',
+          }}
+        />
+
+        {/* Ambient Glow */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            pointerEvents: 'none',
+            boxShadow: 'inset 0 0 40px rgba(6, 59, 43, 0.8)',
+          }}
+        />
+
+        <div
+          style={{
+            position: 'absolute',
+            bottom: '16px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: 'rgba(3, 19, 14, 0.85)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(16, 185, 129, 0.3)',
+            borderRadius: '8px',
+            padding: '6px 14px',
+            fontSize: '0.6875rem',
+            fontFamily: 'var(--font-mono)',
+            color: '#B8F2D5',
+            whiteSpace: 'nowrap',
+            pointerEvents: 'none',
+          }}
+        >
+          <span style={{ color: '#10B981', marginRight: '6px' }}>✦</span>
+          SIGNATURE EMERALD GLASS SCULPTURE
+        </div>
+      </div>
+    </div>
   );
 }

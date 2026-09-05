@@ -137,7 +137,7 @@ export default function WhyTwispSection({ onOpenQuoteModal }) {
               <div
                 style={{
                   width: '100%',
-                  height: '420px',
+                  minHeight: '430px',
                   borderRadius: '16px',
                   backgroundColor: '#041B14',
                   position: 'relative',
@@ -145,27 +145,6 @@ export default function WhyTwispSection({ onOpenQuoteModal }) {
                 }}
               >
                 <WorkspaceScene3D />
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    left: '16px',
-                    backgroundColor: 'rgba(3, 19, 14, 0.8)',
-                    backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(16, 185, 129, 0.2)',
-                    borderRadius: '8px',
-                    padding: '6px 12px',
-                    fontSize: '0.6875rem',
-                    fontFamily: 'var(--font-mono)',
-                    color: '#A7F3D0',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                  }}
-                >
-                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10B981' }} />
-                  TWISP WORKSPACE & ARCHITECTURE RIG
-                </div>
               </div>
             </div>
           </div>
