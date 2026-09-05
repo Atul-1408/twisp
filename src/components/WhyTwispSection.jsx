@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import WorkspaceScene3D from './3d/WorkspaceScene3D';
 
-export default function WhyTwispSection({ onOpenQuoteModal }) {
+export default function WhyTwispSection({ onOpenQuoteModal, onOpenAdmin }) {
   const points = [
     { title: 'Client-focused approach', desc: 'Every decision is tailored to your business objectives, not generic templates.' },
     { title: 'Modern responsive solutions', desc: 'Flawless visual presentation across mobile, tablet, laptop, and ultra-wide displays.' },
@@ -144,7 +144,7 @@ export default function WhyTwispSection({ onOpenQuoteModal }) {
                   overflow: 'hidden',
                 }}
               >
-                <WorkspaceScene3D />
+                <WorkspaceScene3D onOpenAdmin={onOpenAdmin} />
               </div>
             </div>
           </div>

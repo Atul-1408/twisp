@@ -86,6 +86,7 @@ export default function App() {
 
         <WhyTwispSection
           onOpenQuoteModal={scrollToQuote}
+          onOpenAdmin={() => setIsAdminOpen(true)}
         />
 
         <SelectedWorkSection
