@@ -209,29 +209,38 @@ export default function Footer({ onOpenAdmin, onOpenQuoteModal, onOpenPrivacy, o
             </div>
 
             <div style={{ display: 'flex', gap: '12px' }}>
-              {['LinkedIn', 'Instagram'].map((soc) => (
-                <span
-                  key={soc}
+              {[
+                { name: 'LinkedIn', url: 'https://www.linkedin.com/in/twisp-studio-547716434' },
+                { name: 'Instagram', url: 'https://www.instagram.com/twispstudio?stkn=MTgwMDI1MHc0MjQxOQ==' },
+              ].map((soc) => (
+                <a
+                  key={soc.name}
+                  href={soc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{
                     fontSize: '0.75rem',
                     fontFamily: 'var(--font-mono)',
                     color: '#9CA3AF',
-                    cursor: 'pointer',
+                    textDecoration: 'none',
                     padding: '4px 8px',
                     borderRadius: '4px',
                     backgroundColor: 'rgba(255,255,255,0.04)',
+                    transition: 'all 0.15s ease',
+                    display: 'inline-flex',
+                    alignItems: 'center',
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.color = '#10B981';
-                    e.target.style.backgroundColor = 'rgba(16,185,129,0.12)';
+                    e.currentTarget.style.color = '#10B981';
+                    e.currentTarget.style.backgroundColor = 'rgba(16,185,129,0.12)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.color = '#9CA3AF';
-                    e.target.style.backgroundColor = 'rgba(255,255,255,0.04)';
+                    e.currentTarget.style.color = '#9CA3AF';
+                    e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)';
                   }}
                 >
-                  {soc}
-                </span>
+                  {soc.name}
+                </a>
               ))}
             </div>
           </div>
