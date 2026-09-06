@@ -1,7 +1,7 @@
 import { INITIAL_LEADS, INITIAL_PROJECTS, INITIAL_SERVICES } from '../data/initialData';
 
 const LEADS_STORAGE_KEY = 'twisp_studio_leads_v1';
-const PROJECTS_STORAGE_KEY = 'twisp_studio_projects_v1';
+const PROJECTS_STORAGE_KEY = 'twisp_studio_projects_v2';
 const SERVICES_STORAGE_KEY = 'twisp_studio_services_v1';
 
 export const storageService = {

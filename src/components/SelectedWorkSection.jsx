@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { INITIAL_PROJECTS } from '../data/initialData';
 
 export default function SelectedWorkSection({ onSelectProject }) {
   const [activeFilter, setActiveFilter] = useState('All');
-  const filters = ['All', 'Fitness & Wellness', 'Hospitality & Dining', 'Architecture & Interiors', 'E-commerce & Beauty'];
+  const filters = [
+    'All',
+    'Fitness & Wellness',
+    'Restaurant & Hospitality',
+    'Architecture & Interiors',
+    'E-commerce & Beauty',
+    'SaaS & Technology',
+    'Travel & Tours',
+  ];
 
   const filteredProjects = activeFilter === 'All'
     ? INITIAL_PROJECTS
@@ -75,20 +83,21 @@ export default function SelectedWorkSection({ onSelectProject }) {
           </div>
         </div>
 
-        {/* Portfolio Grid — 2 columns on desktop with generous visuals */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-            gap: '40px',
-            marginTop: '40px',
-          }}
-        >
+        {/* Portfolio Grid — Exactly 3 columns x 2 rows on desktop */}
+        <div className="portfolio-showcase-grid">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="portfolio-card"
+              role="button"
+              tabIndex={0}
               onClick={() => onSelectProject(project)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelectProject(project);
+                }
+              }}
               style={{
                 cursor: 'pointer',
                 borderRadius: '20px',
@@ -99,14 +108,15 @@ export default function SelectedWorkSection({ onSelectProject }) {
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
+                height: '100%',
               }}
             >
-              {/* Large Website Preview Frame */}
+              {/* 1. Project Preview Image / Website Mockup */}
               <div
                 style={{
                   position: 'relative',
                   width: '100%',
-                  height: '320px',
+                  aspectRatio: '16 / 10',
                   overflow: 'hidden',
                   backgroundColor: '#06281E',
                 }}
@@ -124,29 +134,29 @@ export default function SelectedWorkSection({ onSelectProject }) {
                   loading="lazy"
                 />
 
-                {/* Top Badge overlay */}
+                {/* 2. Small Category Badge at Top-Left */}
                 <div
                   style={{
                     position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    display: 'flex',
+                    top: '14px',
+                    left: '14px',
+                    display: 'inline-flex',
                     alignItems: 'center',
                     gap: '6px',
-                    padding: '6px 12px',
+                    padding: '5px 12px',
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(3, 19, 14, 0.75)',
+                    backgroundColor: 'rgba(3, 19, 14, 0.82)',
                     backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(16, 185, 129, 0.3)',
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.75rem',
                     fontWeight: 600,
                     color: '#B8F2D5',
+                    letterSpacing: '0.02em',
+                    zIndex: 2,
                   }}
                 >
-                  <span>{project.number}</span>
-                  <span style={{ color: '#10B981' }}>•</span>
-                  <span>{project.category}</span>
+                  <span>{project.number} · {project.category}</span>
                 </div>
 
                 {/* Hover overlay hint */}
@@ -161,16 +171,17 @@ export default function SelectedWorkSection({ onSelectProject }) {
                     alignItems: 'center',
                     justifyContent: 'center',
                     transition: 'opacity var(--transition-fast)',
+                    zIndex: 1,
                   }}
                 >
                   <div
                     style={{
-                      padding: '10px 20px',
+                      padding: '9px 18px',
                       borderRadius: '8px',
                       backgroundColor: '#FFFFFF',
                       color: 'var(--twisp-charcoal)',
                       fontWeight: 700,
-                      fontSize: '0.875rem',
+                      fontSize: '0.8125rem',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
@@ -178,22 +189,23 @@ export default function SelectedWorkSection({ onSelectProject }) {
                     }}
                   >
                     <span>View Case Study</span>
-                    <ArrowUpRight size={16} />
+                    <ArrowUpRight size={15} />
                   </div>
                 </div>
               </div>
 
-              {/* Card Meta Content */}
+              {/* Card Meta Content following exact hierarchy */}
               <div
                 style={{
-                  padding: '28px',
+                  padding: '24px',
                   display: 'flex',
                   flexDirection: 'column',
-                  flexGrow: 1,
+                  flex: 1,
                   justifyContent: 'space-between',
                 }}
               >
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                  {/* 3. Project Category & 5. Year: 2026 */}
                   <div
                     style={{
                       display: 'flex',
@@ -212,38 +224,51 @@ export default function SelectedWorkSection({ onSelectProject }) {
                         fontWeight: 600,
                       }}
                     >
-                      {project.industry}
+                      {project.category}
                     </span>
                     <span
                       style={{
                         fontSize: '0.75rem',
                         color: '#9CA3AF',
                         fontFamily: 'var(--font-mono)',
+                        fontWeight: 500,
                       }}
                     >
-                      {project.year}
+                      Year: {project.year || '2026'}
                     </span>
                   </div>
 
+                  {/* 4. Project Name */}
                   <h3
                     style={{
-                      fontSize: '1.45rem',
+                      fontSize: '1.25rem',
                       fontWeight: 800,
                       color: 'var(--twisp-charcoal)',
                       marginBottom: '10px',
                       letterSpacing: '-0.02em',
+                      lineHeight: 1.3,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
                     }}
                   >
                     <span>{project.title}</span>
-                    <ArrowUpRight size={20} color="#087F5B" className="arrow-icon" />
+                    <ArrowUpRight
+                      size={18}
+                      color="#087F5B"
+                      className="arrow-icon"
+                      style={{
+                        flexShrink: 0,
+                        marginLeft: '8px',
+                        transition: 'transform var(--transition-fast), color var(--transition-fast)',
+                      }}
+                    />
                   </h3>
 
+                  {/* 6. Short Project Description */}
                   <p
                     style={{
-                      fontSize: '0.925rem',
+                      fontSize: '0.875rem',
                       lineHeight: 1.6,
                       color: 'var(--twisp-text-muted)',
                       marginBottom: '20px',
@@ -253,7 +278,7 @@ export default function SelectedWorkSection({ onSelectProject }) {
                   </p>
                 </div>
 
-                {/* Tech chips & button */}
+                {/* Bottom Row: 7. Technology Badges & 8. "View Project →" CTA */}
                 <div
                   style={{
                     display: 'flex',
@@ -261,10 +286,13 @@ export default function SelectedWorkSection({ onSelectProject }) {
                     justifyContent: 'space-between',
                     borderTop: '1px solid rgba(17, 24, 23, 0.06)',
                     paddingTop: '16px',
+                    marginTop: 'auto',
+                    gap: '12px',
                   }}
                 >
+                  {/* 7. Technology Badges */}
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {project.technologies.slice(0, 3).map((tech, idx) => (
+                    {project.technologies.map((tech, idx) => (
                       <span
                         key={idx}
                         style={{
@@ -274,6 +302,7 @@ export default function SelectedWorkSection({ onSelectProject }) {
                           backgroundColor: '#F3F4F6',
                           padding: '3px 8px',
                           borderRadius: '4px',
+                          whiteSpace: 'nowrap',
                         }}
                       >
                         {tech}
@@ -281,14 +310,17 @@ export default function SelectedWorkSection({ onSelectProject }) {
                     ))}
                   </div>
 
+                  {/* 8. "View Project →" CTA */}
                   <span
                     style={{
-                      fontSize: '0.875rem',
+                      fontSize: '0.8125rem',
                       fontWeight: 700,
                       color: 'var(--twisp-emerald-850)',
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '4px',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0,
                     }}
                   >
                     View Project →
@@ -301,6 +333,29 @@ export default function SelectedWorkSection({ onSelectProject }) {
       </div>
 
       <style>{`
+        /* Responsive Grid: Desktop = 3x2, Tablet = 2x3, Mobile = 1x6 */
+        .portfolio-showcase-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+          margin-top: 40px;
+          width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+          .portfolio-showcase-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .portfolio-showcase-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+          }
+        }
+
         .portfolio-card:hover {
           border-color: rgba(16, 185, 129, 0.4) !important;
           transform: translateY(-6px);
