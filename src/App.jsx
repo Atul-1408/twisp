@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import ServicesSection from './components/ServicesSection';
@@ -8,26 +8,60 @@ import ProjectModal from './components/ProjectModal';
 import ProcessSection from './components/ProcessSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
-import AdminDashboard from './components/AdminDashboard';
 import LegalModal from './components/LegalModal';
+
+const AdminDashboard = lazy(() => import('./components/AdminDashboard'));
 
 export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isAdminOpen, setIsAdminOpen] = useState(
+    typeof window !== 'undefined' &&
+      (window.location.pathname === '/admin' || window.location.pathname.startsWith('/admin'))
+  );
   const [legalModalType, setLegalModalType] = useState(null); // 'privacy' | 'terms' | null
   const [prefilledService, setPrefilledService] = useState('');
+
+  // Handle browser URL navigation (/admin, /admin/login)
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const isPathAdmin =
+        window.location.pathname === '/admin' || window.location.pathname.startsWith('/admin');
+      setIsAdminOpen(isPathAdmin);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  const openAdmin = () => {
+    if (window.location.pathname !== '/admin') {
+      window.history.pushState(null, '', '/admin');
+    }
+    setIsAdminOpen(true);
+  };
+
+  const closeAdmin = () => {
+    if (window.location.pathname.startsWith('/admin')) {
+      window.history.pushState(null, '', '/');
+    }
+    setIsAdminOpen(false);
+  };
 
   // Keyboard shortcut Alt + A to toggle Admin CRM
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.altKey && (e.key === 'a' || e.key === 'A')) {
         e.preventDefault();
-        setIsAdminOpen((prev) => !prev);
+        if (isAdminOpen) {
+          closeAdmin();
+        } else {
+          openAdmin();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [isAdminOpen]);
 
   const scrollToQuote = () => {
     const formEl = document.getElementById('quote-form-container') || document.getElementById('contact');
@@ -70,7 +104,7 @@ export default function App() {
       {/* Sticky Navigation */}
       <Navbar
         onOpenQuoteModal={scrollToQuote}
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={openAdmin}
       />
 
       {/* Main Sections */}
@@ -86,7 +120,7 @@ export default function App() {
 
         <WhyTwispSection
           onOpenQuoteModal={scrollToQuote}
-          onOpenAdmin={() => setIsAdminOpen(true)}
+          onOpenAdmin={openAdmin}
         />
 
         <SelectedWorkSection
@@ -105,7 +139,7 @@ export default function App() {
 
       {/* Footer */}
       <Footer
-        onOpenAdmin={() => setIsAdminOpen(true)}
+        onOpenAdmin={openAdmin}
         onOpenQuoteModal={scrollToQuote}
         onOpenPrivacy={() => setLegalModalType('privacy')}
         onOpenTerms={() => setLegalModalType('terms')}
@@ -121,9 +155,11 @@ export default function App() {
       )}
 
       {isAdminOpen && (
-        <AdminDashboard
-          onClose={() => setIsAdminOpen(false)}
-        />
+        <Suspense fallback={null}>
+          <AdminDashboard
+            onClose={closeAdmin}
+          />
+        </Suspense>
       )}
 
       {legalModalType && (

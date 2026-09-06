@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Send, CheckCircle2, AlertCircle, Sparkles, ShieldCheck } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import AbstractEmerald3D from './3d/AbstractEmerald3D';
-import { storageService } from '../services/storageService';
+import { leadService } from '../services/leadService';
 
 export default function ContactSection({ prefilledService, onLeadCreated }) {
   const [formData, setFormData] = useState({
@@ -11,13 +11,15 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
     email: '',
     phone: '',
     website: '',
-    service: prefilledService || 'Website Redesign',
+    service: prefilledService || 'New Website Design & Build',
     budget: '$1,000–$2,500',
+    timeline: '1–2 Months',
     message: '',
     honeypot: '', // Spam protection
   });
 
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submittedLead, setSubmittedLead] = useState(null);
 
@@ -26,6 +28,13 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
     '$500–$1,000',
     '$1,000–$2,500',
     '$2,500+',
+  ];
+
+  const timelineOptions = [
+    'Under 2 Weeks',
+    '1 Month',
+    '1–2 Months',
+    'Flexible',
   ];
 
   const serviceOptions = [
@@ -55,7 +64,7 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Honeypot spam check
@@ -67,40 +76,75 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setSubmitError('');
 
-    setTimeout(() => {
-      const createdLead = storageService.createLead({
+    try {
+      const result = await leadService.submitLead({
         name: formData.name,
         business: formData.business,
+        company: formData.business,
         email: formData.email,
         phone: formData.phone,
         website: formData.website,
         service: formData.service,
         budget: formData.budget,
+        timeline: formData.timeline,
         message: formData.message,
+        honeypot: formData.honeypot,
       });
 
-      setIsSubmitting(false);
-      setSubmittedLead(createdLead);
-
-      // Trigger celebratory confetti
-      try {
-        confetti({
-          particleCount: 65,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#10B981', '#B8F2D5', '#087F5B', '#FFFFFF'],
+      if (result && result.success) {
+        setSubmittedLead(result.data || {
+          id: 'lead-' + Date.now().toString().slice(-6),
+          name: formData.name,
+          business: formData.business || 'Undisclosed Client',
+          company: formData.business || 'Undisclosed Client',
+          service: formData.service,
+          budget: formData.budget,
         });
-      } catch (err) {
-        // ignore
-      }
 
-      if (onLeadCreated) onLeadCreated(createdLead);
-    }, 600);
+        // Trigger celebratory confetti
+        try {
+          confetti({
+            particleCount: 65,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#10B981', '#B8F2D5', '#087F5B', '#FFFFFF'],
+          });
+        } catch (err) {
+          // ignore
+        }
+
+        if (onLeadCreated) onLeadCreated(result.data);
+
+        // Reset form data after successful submission
+        setFormData({
+          name: '',
+          business: '',
+          email: '',
+          phone: '',
+          website: '',
+          service: 'New Website Design & Build',
+          budget: '$1,000–$2,500',
+          timeline: '1–2 Months',
+          message: '',
+          honeypot: '',
+        });
+        setErrors({});
+      } else {
+        setSubmitError(result?.message || 'Unable to submit your request. Please try again.');
+      }
+    } catch (err) {
+      console.error('Lead submission error:', err);
+      setSubmitError(err.message || 'Unable to submit your request. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setSubmittedLead(null);
+    setSubmitError('');
     setFormData({
       name: '',
       business: '',
@@ -109,6 +153,7 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
       website: '',
       service: 'New Website Design & Build',
       budget: '$1,000–$2,500',
+      timeline: '1–2 Months',
       message: '',
       honeypot: '',
     });
@@ -546,6 +591,52 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
                 </div>
               </div>
 
+              {/* Target Timeline Buttons */}
+              <div style={{ marginBottom: '24px' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    fontSize: '0.8125rem',
+                    fontFamily: 'var(--font-mono)',
+                    color: '#B8F2D5',
+                    marginBottom: '10px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  Target Launch Timeline
+                </label>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+                    gap: '10px',
+                  }}
+                >
+                  {timelineOptions.map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, timeline: t })}
+                      style={{
+                        padding: '10px 12px',
+                        borderRadius: '8px',
+                        border: formData.timeline === t ? '1.5px solid #10B981' : '1px solid rgba(16, 185, 129, 0.2)',
+                        backgroundColor: formData.timeline === t ? 'rgba(16, 185, 129, 0.18)' : 'rgba(4, 26, 19, 0.6)',
+                        color: formData.timeline === t ? '#FFFFFF' : '#CBD5E1',
+                        fontSize: '0.8125rem',
+                        fontWeight: formData.timeline === t ? 700 : 500,
+                        cursor: 'pointer',
+                        transition: 'all var(--transition-fast)',
+                        textAlign: 'center',
+                      }}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               {/* Message Details */}
               <div style={{ marginBottom: '32px' }}>
                 <label
@@ -579,6 +670,27 @@ export default function ContactSection({ prefilledService, onLeadCreated }) {
                   </div>
                 )}
               </div>
+
+              {/* Error Alert */}
+              {submitError && (
+                <div
+                  style={{
+                    padding: '14px 18px',
+                    borderRadius: '10px',
+                    backgroundColor: 'rgba(239, 68, 68, 0.12)',
+                    border: '1px solid rgba(239, 68, 68, 0.3)',
+                    color: '#FCA5A5',
+                    fontSize: '0.875rem',
+                    marginBottom: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                  }}
+                >
+                  <AlertCircle size={18} color="#EF4444" style={{ flexShrink: 0 }} />
+                  <span>{submitError}</span>
+                </div>
+              )}
 
               {/* Submit Button */}
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
