@@ -209,7 +209,7 @@ export default function Footer({ onOpenAdmin, onOpenQuoteModal, onOpenPrivacy, o
             </div>
 
             <div style={{ display: 'flex', gap: '12px' }}>
-              {['GitHub', 'X / Twitter', 'LinkedIn', 'Dribbble'].map((soc) => (
+              {['LinkedIn', 'Instagram'].map((soc) => (
                 <span
                   key={soc}
                   style={{
