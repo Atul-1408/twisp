@@ -217,7 +217,7 @@ export default function Navbar({ onOpenQuoteModal, onOpenAdmin }) {
               <ArrowRight size={18} />
             </button>
             <div style={{ textAlign: 'center', fontSize: '0.8125rem', color: '#6B7280' }}>
-              Direct Studio Inquiries: hello@twisp.studio
+              Direct Studio Inquiries: twispstudio@gmail.com
             </div>
           </div>
         </div>

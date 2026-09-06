@@ -185,7 +185,7 @@ export default function Footer({ onOpenAdmin, onOpenQuoteModal, onOpenPrivacy, o
               <div>
                 <div style={{ fontSize: '0.75rem', color: '#6B7280', fontFamily: 'var(--font-mono)' }}>DIRECT EMAIL</div>
                 <a
-                  href="mailto:hello@twisp.studio"
+                  href="mailto:twispstudio@gmail.com"
                   style={{
                     color: '#FFFFFF',
                     fontSize: '0.9375rem',
@@ -197,7 +197,7 @@ export default function Footer({ onOpenAdmin, onOpenQuoteModal, onOpenPrivacy, o
                   onMouseEnter={(e) => (e.target.style.color = '#10B981')}
                   onMouseLeave={(e) => (e.target.style.color = '#FFFFFF')}
                 >
-                  hello@twisp.studio
+                  twispstudio@gmail.com
                   <ArrowUpRight size={14} />
                 </a>
               </div>
