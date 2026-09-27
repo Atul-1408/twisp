@@ -116,7 +116,16 @@ export const storageService = {
         localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(INITIAL_PROJECTS));
         return INITIAL_PROJECTS;
       }
-      return JSON.parse(stored);
+      const parsed = JSON.parse(stored);
+      // Merge in any initial projects not yet in localStorage
+      const existingIds = new Set(parsed.map(p => p.id));
+      const missingInitial = INITIAL_PROJECTS.filter(p => !existingIds.has(p.id));
+      if (missingInitial.length > 0) {
+        const merged = [...parsed, ...missingInitial];
+        localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(merged));
+        return merged;
+      }
+      return parsed;
     } catch (e) {
       console.warn('LocalStorage error reading projects', e);
       return INITIAL_PROJECTS;

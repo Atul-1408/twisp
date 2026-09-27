@@ -281,6 +281,54 @@ export default function ProjectModal({ project, onClose, onSelectForQuote }) {
             </div>
           </div>
 
+          {/* Extended Project Mockups & Device Views */}
+          {project.screens && project.screens.length > 0 && (
+            <div style={{ marginBottom: '36px' }}>
+              <h3
+                style={{
+                  fontSize: '1.1rem',
+                  fontWeight: 700,
+                  color: 'var(--twisp-charcoal)',
+                  marginBottom: '16px',
+                }}
+              >
+                System Previews & Device Mockups
+              </h3>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                  gap: '16px',
+                }}
+              >
+                {project.screens.map((screen, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      border: '1px solid rgba(17, 24, 23, 0.08)',
+                      backgroundColor: '#06281E',
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.06)',
+                    }}
+                  >
+                    <img
+                      src={screen}
+                      alt={`${project.title} Preview ${idx + 1}`}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        objectFit: 'cover',
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Technologies & Deliverables */}
           <div
             style={{

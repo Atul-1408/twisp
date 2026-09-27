@@ -215,6 +215,270 @@ export const INITIAL_PROJECTS = [
       'Custom headless CMS publishing for effortless field updates and editorial guides',
       'Direct booking inquiry pipeline integrated with automated customer reservations'
     ]
+  },
+  {
+    id: 'aura-wellness',
+    number: '07',
+    category: 'Fitness & Wellness',
+    title: 'AURA Modern Wellness',
+    tagline: 'Modern Wellness, Movement & Everyday Ritual',
+    description: 'A considered digital sanctuary for a modern wellness studio. Features holistic treatment reservations, mindful editorial journal, and serene spatial storytelling.',
+    industry: 'Wellness & Sanctuary',
+    year: '2026',
+    deliverables: ['Digital Sanctuary Architecture', 'Treatment Booking Engine', 'Holistic Journal CMS', 'Mobile Web Experience'],
+    technologies: ['React', 'Next.js', 'Tailwind CSS'],
+    coverImage: '/assets/TWISP-V2-ASSETS/AURA/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/AURA/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/AURA/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/AURA/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/AURA/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'AURA required a calming digital presence that translated their tactile, sensory in-studio sanctuary into a serene online ritual without friction.',
+    solution: 'Constructed an ethereal, warm-neutral aesthetic featuring gentle micro-animations, effortless treatment reservations, and an editorial wellness journal.',
+    metrics: [
+      { label: 'Direct Booking Lift', value: '+48%' },
+      { label: 'Mobile Engagement', value: '3m 40s' },
+      { label: 'Page Performance', value: '99/100' }
+    ],
+    features: [
+      'Bespoke treatment selection with therapist matching and instant reservation',
+      'Mindful editorial journal covering movement, nourishment, and longevity',
+      'Fluid responsive layout evoking natural daylight and warm architectural textures',
+      'Zero-friction guest checkout with calendar integration and SMS reminders'
+    ]
+  },
+  {
+    id: 'forma-architecture',
+    number: '08',
+    category: 'Architecture & Interiors',
+    title: 'FORMA Architecture & Spaces',
+    tagline: 'Spaces with Intention · Human-Centered Architecture',
+    description: 'An architectural monograph and digital portfolio for a premier architecture studio designing environments that inspire, endure, and elevate the human experience.',
+    industry: 'Architecture & Spatial Design',
+    year: '2026',
+    deliverables: ['Architectural Portfolio UX', 'Full-Bleed Project Gallery', 'Studio Monograph CMS', 'Interactive Blueprint Viewer'],
+    technologies: ['React', 'CSS Grid', 'GSAP'],
+    coverImage: '/assets/TWISP-V2-ASSETS/FORMA/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/FORMA/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/FORMA/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/FORMA/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/FORMA/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'FORMA needed a digital monograph that matched their brutalist, monolithic aesthetic while preserving fast load times for ultra-high-resolution architectural photography.',
+    solution: 'Engineered an expansive grid system with bespoke image streaming, full-screen project walkthroughs, and minimal editorial typography.',
+    metrics: [
+      { label: 'Commercial Inquiries', value: '+62%' },
+      { label: 'Average Session Time', value: '4m 55s' },
+      { label: 'Image Load Latency', value: '<0.4s' }
+    ],
+    features: [
+      'Interactive project showcase spanning private residences, studios, and cultural pavilions',
+      'High-fidelity architectural film integration and material texture inspect modes',
+      'Responsive editorial masonry grid tailored for multi-screen showcase',
+      'Seamless project inquiry form with preliminary site brief uploading'
+    ]
+  },
+  {
+    id: 'mono-creative',
+    number: '09',
+    category: 'SaaS & Technology',
+    title: 'MONO Creative Direction',
+    tagline: 'Ideas Made Visible · Creative Direction & Digital Experiences',
+    description: 'A bold, high-contrast digital portfolio for an international creative director and brand consultancy specializing in art direction, digital products, and brand identities.',
+    industry: 'Creative Direction & Branding',
+    year: '2026',
+    deliverables: ['Brand Identity Architecture', 'Interactive Case Studies', 'Editorial Thinking Archive', 'Custom Dark Mode UX'],
+    technologies: ['Vite', 'React', 'Framer Motion'],
+    coverImage: '/assets/TWISP-V2-ASSETS/MONO/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/MONO/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/MONO/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/MONO/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/MONO/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'MONO needed to push the boundaries of digital portfolio interaction with visceral dark-mode typography and seamless transitions without sacrificing accessibility.',
+    solution: 'Created a stark black-and-vermilion typographic showcase with smooth cursor interactions, project case study archives, and an editorial thoughts engine.',
+    metrics: [
+      { label: 'Global Agency Inquiries', value: '+74%' },
+      { label: 'Interaction Rate', value: '88%' },
+      { label: 'Core Web Vitals', value: '100/100' }
+    ],
+    features: [
+      'Curated case study grid showcasing brand identity, digital products, and experimental works',
+      'Integrated "Notes & Ideas" intellectual writing platform with reader mode',
+      'Kinetic typography and hover states built with high-performance CSS transitions',
+      'Frictionless collaboration inquiry workflow for brands and enterprise clients'
+    ]
+  },
+  {
+    id: 'nexus-financial',
+    number: '10',
+    category: 'SaaS & Technology',
+    title: 'NEXUS Financial Infrastructure',
+    tagline: 'Move Money Forward · Next-Generation Global Payments',
+    description: 'A modern financial infrastructure and treasury management platform empowering global businesses to move, convert, and manage capital across 190+ countries with speed and security.',
+    industry: 'FinTech & Infrastructure',
+    year: '2026',
+    deliverables: ['FinTech Platform Architecture', 'Real-Time Financial Analytics', 'Global Payment Gateway UI', 'Enterprise Security Console'],
+    technologies: ['Next.js', 'React', 'Tailwind CSS'],
+    coverImage: '/assets/TWISP-V2-ASSETS/NEXUS/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/NEXUS/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/NEXUS/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/NEXUS/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/NEXUS/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'NEXUS needed to convey enterprise-grade reliability and complex multi-currency capabilities through an intuitive, modern dashboard interface.',
+    solution: 'Designed a dark-emerald financial command center featuring live transaction telemetry, interactive currency charts, and multi-tier permission controls.',
+    metrics: [
+      { label: 'Enterprise Uptime', value: '99.9%' },
+      { label: 'Onboarding Speed', value: '40s' },
+      { label: 'Demo Conversions', value: '+56%' }
+    ],
+    features: [
+      'Real-time global transaction visualization with live settlement telemetry',
+      'Smarter treasury management console with automated multi-currency hedging',
+      'Instant API documentation explorer and sandbox testing integration',
+      'Enterprise-grade security architecture with biometrics and role-based access'
+    ]
+  },
+  {
+    id: 'nova-intelligence',
+    number: '11',
+    category: 'SaaS & Technology',
+    title: 'NOVA Intelligence Layer',
+    tagline: 'Intelligence in Motion · Enterprise AI Decision Platform',
+    description: 'An enterprise AI intelligence layer designed to unify data, automate cross-functional workflows, and empower executive teams to make high-confidence decisions 10x faster.',
+    industry: 'AI & Big Data Analytics',
+    year: '2026',
+    deliverables: ['AI Platform Design System', 'Predictive Analytics Dashboard', 'Conversational AI Assistant UI', 'Enterprise Integration Hub'],
+    technologies: ['React', 'Next.js', 'PostgreSQL'],
+    coverImage: '/assets/TWISP-V2-ASSETS/NOVA/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/NOVA/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/NOVA/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/NOVA/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/NOVA/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'NOVA needed to present complex neural analytics and workflow automation in a format that business operators could comprehend and act on in seconds.',
+    solution: 'Engineered an ethereal, deep-space visual design system featuring proactive intelligence cards, interactive prediction graphs, and an integrated copilot drawer.',
+    metrics: [
+      { label: 'Insight Velocity', value: '10x' },
+      { label: 'Workflow Efficiency', value: '+34%' },
+      { label: 'Decision Confidence', value: '90%' }
+    ],
+    features: [
+      'Proactive intelligence overview tracking total insights, project velocity, and cost optimization',
+      'Contextual AI copilot modal answering natural-language queries across corporate repositories',
+      'Multi-channel workflow automation builder with zero-code triggers',
+      'High-density performance trends with predictive forecasting curves'
+    ]
+  },
+  {
+    id: 'orbit-essentials',
+    number: '12',
+    category: 'E-commerce & Beauty',
+    title: 'ORBIT Everyday Essentials',
+    tagline: 'Objects for Everyday Life · Mindful Modern Living',
+    description: 'A minimalist direct-to-consumer lifestyle brand crafting sustainable home goods, workspace tools, and travel essentials designed for simplicity and intentional living.',
+    industry: 'Consumer Goods & Lifestyle',
+    year: '2026',
+    deliverables: ['E-Commerce Digital Storefront', 'Quick-Shop Drawer UI', 'Curated Editorial Catalog', 'Stripe Multi-Currency Checkout'],
+    technologies: ['Next.js', 'Stripe', 'Tailwind CSS'],
+    coverImage: '/assets/TWISP-V2-ASSETS/ORBIT/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/ORBIT/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/ORBIT/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/ORBIT/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/ORBIT/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'ORBIT required a digital shopping experience that emphasized product craftsmanship and tactile warmth while keeping checkout latency under 20 seconds.',
+    solution: 'Created a warm stone-and-terracotta visual layout with quick-add cart drawers, multi-angle zoom galleries, and transparent sustainability disclosures.',
+    metrics: [
+      { label: 'Mobile Cart Conversion', value: '5.2%' },
+      { label: 'Average Order Value', value: '+31%' },
+      { label: 'Repeat Customer Rate', value: '44%' }
+    ],
+    features: [
+      'Instant slide-over cart with live shipping calculation and 1-tap Apple Pay / Stripe',
+      'Interactive category explorer spanning Home, Lifestyle, Workspace, and Accessories',
+      'Material sustainability tracker outlining circular lifecycle for every SKU',
+      'Editorial stories and founder film integrations driving brand affinity'
+    ]
+  },
+  {
+    id: 'pulse-healthcare',
+    number: '13',
+    category: 'Fitness & Wellness',
+    title: 'PULSE Healthcare Connected',
+    tagline: 'Healthcare, Connected · Next-Generation Patient Care',
+    description: 'A connected healthcare and telehealth ecosystem connecting over 50,000 patients with verified physicians, seamless appointments, lab results, and personalized treatment plans.',
+    industry: 'HealthTech & Telemedicine',
+    year: '2026',
+    deliverables: ['Telehealth Patient Portal', 'Physician Scheduling System', 'HIPAA-Compliant Records UI', 'Mobile Patient Application'],
+    technologies: ['React', 'Node.js', 'WebRTC'],
+    coverImage: '/assets/TWISP-V2-ASSETS/PULSE/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/PULSE/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/PULSE/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/PULSE/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/PULSE/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'PULSE required an approachable, deeply trustworthy interface that made booking appointments and accessing confidential lab results effortless across all age demographics.',
+    solution: 'Designed a clean, reassuring navy-and-mint visual design system with clear doctor profiles, intuitive symptom navigators, and unified patient records.',
+    metrics: [
+      { label: 'Patient Satisfaction', value: '4.9/5' },
+      { label: 'Patients Served', value: '50K+' },
+      { label: 'Booking Completion', value: '94%' }
+    ],
+    features: [
+      'Instant appointment booking across Primary Care, Specialists, and Mental Health',
+      'Secure patient health record vault with instant prescription refill requests',
+      'Encrypted HD video consultation module with integrated clinical notes',
+      'Companion mobile dashboard displaying daily vitals and medication reminders'
+    ]
+  },
+  {
+    id: 'vanta-fashion',
+    number: '14',
+    category: 'E-commerce & Beauty',
+    title: 'VANTA Form in Motion',
+    tagline: 'Sculpted for a Bolder Tomorrow · Luxury Avant-Garde Fashion',
+    description: 'A sculptural luxury fashion monograph and haute couture portal exploring movement, contrast, and modern silhouettes through high-impact editorial storytelling.',
+    industry: 'Luxury Fashion & Haute Couture',
+    year: '2026',
+    deliverables: ['Haute Couture Lookbook UX', 'Editorial Collection Runway', 'Private Client Concierge', 'High-Performance Media Engine'],
+    technologies: ['React', 'Vite', 'CSS Grid'],
+    coverImage: '/assets/TWISP-V2-ASSETS/VANTA/cover.webp',
+    screens: [
+      '/assets/TWISP-V2-ASSETS/VANTA/desktop-01.webp',
+      '/assets/TWISP-V2-ASSETS/VANTA/desktop-02.webp',
+      '/assets/TWISP-V2-ASSETS/VANTA/desktop-03.webp',
+      '/assets/TWISP-V2-ASSETS/VANTA/mobile.webp'
+    ],
+    liveUrl: '#',
+    challenge: 'VANTA needed a high-fashion digital runway that evoked the theatrical exclusivity of a Paris couture presentation while maintaining responsive precision across all devices.',
+    solution: 'Engineered an obsidian, editorial layout with dramatic typographic contrast, fluid swipe-based lookbook galleries, and private concierge ordering.',
+    metrics: [
+      { label: 'Runway Engagement', value: '6m 12s' },
+      { label: 'Private Order Inquiries', value: '+85%' },
+      { label: 'Image Render Speed', value: '0.3s' }
+    ],
+    features: [
+      'Full-bleed editorial runway galleries with tactile fabric texture magnification',
+      'Private client concierge module for bespoke garment fittings and reservations',
+      'Multi-chapter seasonal collection viewer with synchronized fashion film soundtracks',
+      'Zero-friction private trunk show invitations and encrypted VIP checkouts'
+    ]
   }
 ];
 
