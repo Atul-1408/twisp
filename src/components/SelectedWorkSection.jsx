@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { INITIAL_PROJECTS } from '../data/initialData';
+import ProgressiveImage from './common/ProgressiveImage';
 
 export default function SelectedWorkSection({ onSelectProject }) {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -121,17 +122,14 @@ export default function SelectedWorkSection({ onSelectProject }) {
                   backgroundColor: '#06281E',
                 }}
               >
-                <img
+                <ProgressiveImage
                   src={project.coverImage}
                   alt={`${project.title} Preview`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform var(--transition-smooth)',
-                  }}
-                  className="portfolio-thumb-img"
+                  aspectRatio="16 / 10"
+                  rounded="0px"
                   loading="lazy"
+                  imgClassName="portfolio-thumb-img"
+                  style={{ width: '100%', height: '100%' }}
                 />
 
                 {/* 2. Small Category Badge at Top-Left */}
